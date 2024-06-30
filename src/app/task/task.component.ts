@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,17 +10,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
-  newTask: string = '';
-  tasks: string[] = [];
+  @Output() deleteTaskEvent = new EventEmitter<string>();
+  @Input() title: string = '';
+  @Input() creationTime: string = '';
 
-  addTask() {
-    if (this.newTask.trim()) {
-      this.tasks.push(this.newTask.trim());
-      this.newTask = '';
-    }
-  }
-
-  deleteTask(index: number) {
-    this.tasks.splice(index, 1);
+  deleteTask() {
+    this.deleteTaskEvent.emit(this.creationTime);
   }
 }
